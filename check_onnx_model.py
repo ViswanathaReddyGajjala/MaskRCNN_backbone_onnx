@@ -1,4 +1,4 @@
-
+import numpy as np
 import onnx
 import caffe2.python.onnx.backend as onnx_caffe2_backend
 from backbone_with_fpn import resnet_fpn_backbone
@@ -23,8 +23,10 @@ W = {model.graph.input[0].name: x.data.numpy()}
 # Run the Caffe2 net:
 onnx_out = prepared_backend.run(W)
 
-# Verify the numerical correctness upto 3 decimal places
+def to_numpy(tensor):
+    return tensor.detach().cpu().numpy() if tensor.requires_grad else tensor.cpu().numpy()
 
+# Verify the numerical correctness upto 3 decimal places
 for i in range(len(torch_out)):
     print (torch_out[i].shape, onnx_out[i].shape)
     np.testing.assert_almost_equal(to_numpy(torch_out[i]), onnx_out[i], decimal=3)
