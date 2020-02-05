@@ -1,4 +1,5 @@
 from backbone_with_fpn import resnet_fpn_backbone
+import torch
 
 backbone = resnet_fpn_backbone('resnet18', pretrained= True)
 
