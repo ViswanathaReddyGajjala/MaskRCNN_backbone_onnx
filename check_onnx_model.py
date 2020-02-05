@@ -1,5 +1,6 @@
 import numpy as np
 import onnx
+import torch
 import caffe2.python.onnx.backend as onnx_caffe2_backend
 from backbone_with_fpn import resnet_fpn_backbone
 
